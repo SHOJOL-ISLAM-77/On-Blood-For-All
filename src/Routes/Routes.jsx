@@ -8,6 +8,8 @@ import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import Funding from "../Pages/Fundings/Fundings";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Blogs from "../Pages/Blogs/Blogs";
+import Profile from "../Pages/Profile/Profile";
+import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,6 @@ const router = createBrowserRouter([
       { path: "/donation-requests", element: <DonationRequests /> },
       { path: "/blogs", element: <Blogs /> },
       { path: "/funding", element: <Funding /> },
-      { path: "/dashboard", element: <Dashboard /> },
     ],
   },
   {
@@ -29,6 +30,20 @@ const router = createBrowserRouter([
   {
     path: "/singUp",
     element: <SingUp />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path:"/dashboard",
+        element: <DashboardHome/>
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
+      },
+    ],
   },
 ]);
 

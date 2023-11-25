@@ -1,11 +1,18 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../../../public/logo.png"
+import logo from "../../../../public/logo.png";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const drawerRef = useRef(null);
+
+  const [dropOpen, setDropOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropOpen(!dropOpen);
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -45,6 +52,7 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+  const { user, logOut } = useContext(AuthContext);
   const navLinks = (
     <>
       <li>
@@ -89,42 +97,71 @@ const Navbar = () => {
           Blogs
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "underline"
-              : "block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
-          }
-        >
-          Dashboard
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/funding"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "underline"
-              : "block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
-          }
-        >
-          Funding
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/login"
-          className="block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
-        >
-          Sign In
-        </NavLink>
-      </li>
+      {user ? (
+        <>
+          <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "underline"
+                  : "block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/funding"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "underline"
+                  : "block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
+              }
+            >
+              Funding
+            </NavLink>
+          </li>
+          <li>
+            <div className="relative z-40">
+              <img
+                onClick={toggleDropdown}
+                tabIndex={0}
+                className="w-10 h-10 rounded-full cursor-pointer"
+                src={user?.photoURL}
+                alt="User dropdown"
+              />
+              {dropOpen && (
+                <div className="absolute right-0 mt-2 z-50 w-48 rounded-md bg-white shadow-lg py-1 p-1">
+                  <div
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    onClick={logOut}
+                  >
+                    Sign out
+                  </div>
+                  <p>{user.displayName}</p>
+                </div>
+              )}
+            </div>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink
+              to="/login"
+              className="block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
+            >
+              Sign In
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -133,7 +170,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div>
           <Link to="/">
-          <img className="max-h-24 py-2" src={logo} alt="" />
+            <img className="max-h-24 py-2" src={logo} alt="" />
           </Link>
         </div>
         {/* Desktop menu */}

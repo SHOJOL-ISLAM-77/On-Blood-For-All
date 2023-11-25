@@ -111,23 +111,27 @@ const SignUp = () => {
         );
         return;
       }
-      createUser(email, password)
-        .then((result) => {
-          console.log(result);
+      try {
+        createUser(email, password)
+          .then((result) => {
+            console.log(result);
 
-          updateUserProfile(name, img)
-            .then((result) => {
-              console.log(result.user);
-            })
-            .catch((error) => {
-              setSingUpError(error.message);
-            });
-          Swal.fire("Good job!", "Thanks for Sing Up!", "success");
-          navigate(location?.state ? location.state : "/");
-        })
-        .catch((error) => {
-          setSingUpError(error.message);
-        });
+            updateUserProfile(name, img)
+              .then((result) => {
+                console.log(result.user);
+              })
+              .catch((error) => {
+                setSingUpError(error.message);
+              });
+            Swal.fire("Good job!", "Thanks for Sing Up!", "success");
+            navigate(location?.state ? location.state : "/");
+          })
+          .catch((error) => {
+            setSingUpError(error.message);
+          });
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setSingUpError("Provide same password");
     }
@@ -237,10 +241,10 @@ const SignUp = () => {
           </label>
           <select
             required
-            onFocus={handleDistricts}
+            onClick={handleDistricts}
             className="input input-bordered w-full p-4 border outline-none"
           >
-             <option>Select your Division</option>
+            <option>Select your Division</option>
             {division?.map((data) => (
               <option key={data.id} value={data.id}>
                 {data.name}
@@ -258,10 +262,10 @@ const SignUp = () => {
           </label>
           <select
             required
-            onFocus={handleUpazila}
+            onClick={handleUpazila}
             className="input input-bordered w-full p-4 border outline-none"
           >
-            <option >Select your district</option>
+            <option>Select your district</option>
             {districts?.map((data) => (
               <option key={data.id} value={data.id}>
                 {data.name}
@@ -282,7 +286,7 @@ const SignUp = () => {
             name="upazila"
             className="input input-bordered w-full p-4 border outline-none"
           >
-             <option >Select your Upazila</option>
+            <option>Select your Upazila</option>
             {upazila?.map((data) => (
               <option key={data.id} value={data.name}>
                 {data.name}
