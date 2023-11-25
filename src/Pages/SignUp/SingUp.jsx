@@ -20,7 +20,8 @@ const SignUp = () => {
   const [singUpError, setSingUpError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const { googleSignIn, updateUserProfile, createUser } = useContext(AuthContext);
+  const { googleSignIn, updateUserProfile, createUser } =
+    useContext(AuthContext);
 
   useEffect(() => {
     axiosPublic.get("/division").then((res) => {
@@ -236,9 +237,10 @@ const SignUp = () => {
           </label>
           <select
             required
-            onChange={handleDistricts}
+            onFocus={handleDistricts}
             className="input input-bordered w-full p-4 border outline-none"
           >
+             <option>Select your Division</option>
             {division?.map((data) => (
               <option key={data.id} value={data.id}>
                 {data.name}
@@ -256,9 +258,10 @@ const SignUp = () => {
           </label>
           <select
             required
-            onChange={handleUpazila}
+            onFocus={handleUpazila}
             className="input input-bordered w-full p-4 border outline-none"
           >
+            <option >Select your district</option>
             {districts?.map((data) => (
               <option key={data.id} value={data.id}>
                 {data.name}
@@ -279,6 +282,7 @@ const SignUp = () => {
             name="upazila"
             className="input input-bordered w-full p-4 border outline-none"
           >
+             <option >Select your Upazila</option>
             {upazila?.map((data) => (
               <option key={data.id} value={data.name}>
                 {data.name}
@@ -334,20 +338,20 @@ const SignUp = () => {
         <div className="my-4">
           {singUpError && <p className="text-red-700 pt-4">{singUpError}</p>}
         </div>
-    <div className="flex justify-evenly items-center flex-wrap">
-    <button
-          type="submit"
-          className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
-        >
-          Register
-        </button>
-        <button
-          className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
-          onClick={handleGoogleSingUp}
-        >
-          handleGoogleSingUp
-        </button>
-    </div>
+        <div className="flex justify-evenly items-center flex-wrap">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
+          >
+            Register
+          </button>
+          <button
+            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
+            onClick={handleGoogleSingUp}
+          >
+            handleGoogleSingUp
+          </button>
+        </div>
       </form>
     </div>
   );
