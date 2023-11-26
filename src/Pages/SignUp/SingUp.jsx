@@ -113,7 +113,7 @@ const SignUp = () => {
       }
       try {
         createUser(email, password)
-          .then((result) => {
+          .then(async (result) => {
             console.log(result);
 
             updateUserProfile(name, img)
@@ -123,6 +123,21 @@ const SignUp = () => {
               .catch((error) => {
                 setSingUpError(error.message);
               });
+
+            const user = {
+              img,
+              blood,
+              email,
+              name,
+              password,
+              divisionName,
+              districtName,
+              upazila,
+              role: "donar",
+              status: "active",
+            };
+            const { data } = await axiosPublic.put(`/users/${email}`, user);
+            console.log(data);
             Swal.fire("Good job!", "Thanks for Sing Up!", "success");
             navigate(location?.state ? location.state : "/");
           })
@@ -222,6 +237,7 @@ const SignUp = () => {
             <option value="A+" selected>
               A+
             </option>
+            <option>select your blood group</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
             <option value="B-">B-</option>
