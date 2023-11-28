@@ -1,8 +1,8 @@
 
 const DonationRequests = () => {
     return (
-        <div>
-            this is donation requests page
+        <div className="text-center border-4">
+            this is donation requests page 
         </div>
     );
 };

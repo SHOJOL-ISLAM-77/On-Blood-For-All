@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 import { FaAlignJustify } from "react-icons/fa";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Dashboard = () => {
   };
   return (
     <div className="flex">
+      <HelmetTitle title={"Dashboard"}/>
       <div className="lg:min-w-[300px] sm:min-w-[200px] min-w-[100px] bg-gray-800">
         <div className="flex h-screen ">
           {/* Sidebar */}
@@ -19,12 +21,24 @@ const Dashboard = () => {
             } lg:block lg:w-20 lg:flex-shrink-0`}
           >
             {/* Sidebar content */}
-            <div className="flex flex-col mt-16 items-center gap-3 justify-center ">
-              <Link to="/">Home</Link>
-              <Link to="/">Home</Link>
-              <Link to="/">Home</Link>
-              <Link to="/">Home</Link>
-              <Link to="/">Home</Link>
+            <div className="flex flex-col mt-16 items-center gap-3">
+              <div className="text-left px-5 w-full">
+                <Link to="/">Home</Link>
+              </div>
+              <div className="text-left w-full px-5">
+                <Link to="/dashboard/create-donation-request">
+                  Create Donation Request
+                </Link>
+              </div>
+              <div className="text-left px-5 w-full">
+                <Link to="/">Home</Link>
+              </div>
+              <div className="text-left px-5 w-full">
+                <Link to="/">Home</Link>
+              </div>
+              <div className="text-left px-5 w-full">
+                <Link to="/">Home</Link>
+              </div>
             </div>
           </aside>
 
@@ -51,7 +65,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div>
+      <div className="flex-grow">
         <Outlet />
       </div>
     </div>

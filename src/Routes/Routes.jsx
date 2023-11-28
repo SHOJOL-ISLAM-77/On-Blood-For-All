@@ -10,6 +10,10 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Blogs from "../Pages/Blogs/Blogs";
 import Profile from "../Pages/Profile/Profile";
 import DashboardHome from "../Pages/DashboardHome/DashboardHome";
+import SearchPage from "../Pages/Search/Search";
+import DashboardDonationRequest from "../Pages/DashboardDonationRequest/DashboardDonationRequest";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +22,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/search", element: <SearchPage /> },
       { path: "/donation-requests", element: <DonationRequests /> },
       { path: "/blogs", element: <Blogs /> },
       { path: "/funding", element: <Funding /> },
@@ -36,12 +41,24 @@ const router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path:"/dashboard",
-        element: <DashboardHome/>
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <DashboardHome />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/profile",
         element: <Profile />,
+      },
+      {
+        path: "/dashboard/create-donation-request",
+        element: (
+          <PrivateRoute>
+            <DashboardDonationRequest />
+          </PrivateRoute>
+        ),
       },
     ],
   },

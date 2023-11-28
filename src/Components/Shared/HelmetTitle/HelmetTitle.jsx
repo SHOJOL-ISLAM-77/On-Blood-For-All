@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
+
 import { Helmet } from "react-helmet-async";
+
 
 const HelmetTitle = ({title}) => {
   return (
     <div>
       <Helmet>
-        <title>Bistro Boss || {title}</title>
+        <title>{title} || On Blood For All</title>
       </Helmet>
     </div>
   );

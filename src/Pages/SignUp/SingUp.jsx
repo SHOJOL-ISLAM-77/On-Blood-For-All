@@ -86,21 +86,6 @@ const SignUp = () => {
     const ConfirmPassword = form.ConfirmPassword.value;
 
     if (password === ConfirmPassword) {
-      const userImg = await UploadImg(avatar);
-      const img = userImg.data.display_url;
-      console.log({
-        img,
-        blood,
-        email,
-        name,
-        password,
-        divisionName,
-        districtName,
-        upazila,
-        role: "donar",
-        status: "active",
-      });
-
       const passwordTest = /^(?=.*[A-Z])(?=.*[\W_]).*[A-Za-z0-9].*$/;
       if (password.length < 6) {
         setSingUpError(" Password should be at least 6 characters");
@@ -115,6 +100,8 @@ const SignUp = () => {
         createUser(email, password)
           .then(async (result) => {
             console.log(result);
+            const userImg = await UploadImg(avatar);
+            const img = userImg.data.display_url;
 
             updateUserProfile(name, img)
               .then((result) => {
@@ -234,10 +221,8 @@ const SignUp = () => {
             name="blood"
             className="input input-bordered w-full p-4 border outline-none"
           >
-            <option value="A+" selected>
-              A+
-            </option>
             <option>select your blood group</option>
+            <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
             <option value="B-">B-</option>

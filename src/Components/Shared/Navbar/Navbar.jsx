@@ -71,6 +71,20 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
+          to="/search"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "underline"
+              : "block text-gray-800 hover:bg-gray-200 lg:hover:bg-inherit lg:text-gray-800 py-2"
+          }
+        >
+          Search
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/donation-requests"
           className={({ isActive, isPending }) =>
             isPending

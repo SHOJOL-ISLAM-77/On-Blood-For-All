@@ -9,7 +9,7 @@ const Footer = () => {
                 CONTACT US
               </h3>
               <p className="text-center">123 ABS Street, Uni 21, Bangladesh</p>
-              <p className="text-center"> +88 123456789</p>
+              <p className="text-center"> +88 01532316559</p>
               <p className="text-center">Mon - Fri: 08:00 - 22:00</p>
               <p className="text-center">Sat - Sun: 10:00 - 23:00</p>
             </div>
@@ -29,7 +29,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="bg-black w-full h-24 flex justify-center items-center">
-          Copyright © CulinaryCloud. All rights reserved.
+          Copyright © On blood for all. All rights reserved.
         </div>
       </div>
   );
