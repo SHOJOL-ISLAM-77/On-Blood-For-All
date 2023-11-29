@@ -1,41 +1,48 @@
-
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 
 const DashboardHome = () => {
-    return (
-        <div>
-            <p className="text-4xl">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-              eaque fugit deserunt qui dicta? Tempora voluptas numquam accusamus
-              ullam, tempore doloremque deserunt asperiores laboriosam est.
-              Error minima officia, ipsam porro unde tempora! Ad expedita
-              explicabo consequatur amet minus minima, recusandae, quaerat quis
-              at maiores nihil consectetur dicta deserunt aliquam quas aliquid
-              et enim. Fugit explicabo facilis laudantium nostrum, quidem odio
-              voluptatibus commodi facere molestiae sit nisi dignissimos laborum
-              eius sapiente aliquid unde nam voluptate dolorum quas eos
-              reprehenderit. Cum atque fugit deserunt qui dicta? Tempora
-              voluptas numquam accusamus ullam, tempore doloremque deserunt
-              asperiores laboriosam est. Error minima officia, ipsam porro unde
-              tempora! Ad expedita explicabo consequatur amet minus minima,
-              recusandae, quaerat quis at maiores nihil consectetur dicta
-              deserunt aliquam quas aliquid et enim. Fugit explicabo facilis
-              laudantium nostrum, quidem odio voluptatibus commodi facere
-              molestiae sit nisi dignissimos laborum eius sapiente aliquid unde
-              nam voluptate dolorum quas eos reprehenderit. Cum atque fugit
-              deserunt qui dicta? Tempora voluptas numquam accusamus ullam,
-              tempore doloremque deserunt asperiores laboriosam est. Error
-              minima officia, ipsam porro unde tempora! Ad expedita explicabo
-              consequatur amet minus minima, recusandae, quaerat quis at maiores
-              nihil consectetur dicta deserunt aliquam quas aliquid et enim.
-              Fugit explicabo facilis laudantium nostrum, quidem odio
-              voluptatibus commodi facere molestiae sit nisi dignissimos laborum
-              eius sapiente aliquid unde nam voluptate dolorum quas eos
-              reprehenderit. Cum atque impedit fugiat et minus culpa possimus
-              voluptas, distinctio, obcaecati veniam neque, tempora praesentium
-              eius voluptatem quia reiciendis ad totam perferendis.
-            </p>
-        </div>
-    );
+  const { user } = useContext(AuthContext);
+  const [requests, setRequests] = useState([]);
+  const axiosPublic = useAxiosPublic();
+  useEffect(() => {
+    axiosPublic
+      .get(`/get-request-for-dashboard-home-page?email=${user.email}`)
+      .then((res) => {
+        console.log(res.data);
+        setRequests(res.data);
+      });
+  }, [axiosPublic, user]);
+  return (
+    <div className="w-full">
+      <div className="bg-blue-200 py-12 text-center">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">
+          Welcome, {user.displayName}!
+        </h1>
+        <p className="text-lg text-gray-600">
+          Thank you for being a part of our blood donation community.
+        </p>
+      </div>
+      <div>
+        {requests.length > 0 && (
+          <>
+            <div className="grid grid-cols-9">
+              <div className="col-span-1">recipient name</div>
+              <div className="col-span-1">recipient location</div>
+              <div className="col-span-1">donation date</div>
+              <div className="col-span-1">donation time</div>
+              <div className="col-span-1"></div>
+              <div className="col-span-1"></div>
+              <div className="col-span-1"></div>
+              <div className="col-span-1"></div>
+              <div className="col-span-1"></div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default DashboardHome;

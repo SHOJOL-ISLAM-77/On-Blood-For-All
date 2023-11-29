@@ -13,7 +13,9 @@ import DashboardHome from "../Pages/DashboardHome/DashboardHome";
 import SearchPage from "../Pages/Search/Search";
 import DashboardDonationRequest from "../Pages/DashboardDonationRequest/DashboardDonationRequest";
 import PrivateRoute from "./PrivateRoute";
-import AdminRoute from "./AdminRoute";
+import MyDonationRequests from "../Pages/MyDonationRequests/MyDonationRequests";
+import RequestDetails from "../Pages/RequestDetails/RequestDetails";
+import useAxiosPublic from "../Hooks/UseAxiosPublic";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       { path: "/donation-requests", element: <DonationRequests /> },
       { path: "/blogs", element: <Blogs /> },
       { path: "/funding", element: <Funding /> },
+      {
+        path: "/requestDetails/:id",
+        element: (
+          <PrivateRoute>
+            <RequestDetails />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -38,15 +48,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <DashboardHome />
-          </PrivateRoute>
-        ),
+        element: <DashboardHome />,
+      },
+      {
+        path: "/dashboard/my-donation-requests",
+        element: <MyDonationRequests></MyDonationRequests>,
       },
       {
         path: "/dashboard/profile",
@@ -54,11 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/create-donation-request",
-        element: (
-          <PrivateRoute>
-            <DashboardDonationRequest />
-          </PrivateRoute>
-        ),
+        element: <DashboardDonationRequest />,
       },
     ],
   },
