@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaCalendarPlus, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const DonationRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {user} = useContext(AuthContext)
   const [skeleton] = useState(Array.from({ length: 9 }, (_, index) => index));
   const axiosPublic = useAxiosPublic();
   useEffect(() => {
-    axiosPublic.get("/donation-request").then((res) => {
+    axiosPublic.get(`/donation-request?email=${user?.email}`).then((res) => {
       setRequests(res.data);
       setLoading(false);
       console.log(res.data);
     });
-  }, [axiosPublic]);
+  }, [axiosPublic, user]);
 
   return (
     <div className="max-w-[1400px] mx-auto">

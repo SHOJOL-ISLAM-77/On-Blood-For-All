@@ -9,10 +9,11 @@ import {
   FaHandsHelping,
   FaHome,
   FaSearch,
+  FaUserTie,
 } from "react-icons/fa";
-import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 import logo from "../../../public/logo.png";
 import {} from "react-icons/fa";
+// import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,18 +21,16 @@ const Dashboard = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  
   return (
-    <div className="flex w-full h-full">
-      
-      <div className="lg:min-w-[300px] min-h-full sm:min-w-[200px] min-w-[100px] bg-gray-300">
-        <div className="flex h-screen ">
-          {/* Sidebar */}
+    <div className="flex w-full h-full ">
+      <div className="lg:min-w-[300px] min-h-max bg-gray-300">
+        <div className="flex h-screen min-h-max">
           <aside
-            className={`lg:min-w-[300px] sm:min-w-[200px] min-w-[100px] fixed  h-screen  bg-gray-300 ${
+            className={`lg:min-w-[300px] sm:min-w-[200px] min-w-[100px] h-screen fixed lg:relative min-h-max  bg-gray-300 ${
               isOpen ? "block" : "hidden"
             } lg:block lg:w-20 lg:flex-shrink-0`}
           >
-            {/* Sidebar content */}
             <div className="flex flex-col mt-16 items-center gap-4">
               <div className="border-b-2 w-full py-3 border-black">
                 <Link to="/">
@@ -41,20 +40,23 @@ const Dashboard = () => {
 
               <div className="text-left w-full px-5 flex gap-3 text-lg items-center">
                 <FaHome />
-                <Link to="/dashboard">
-                  Dashboard Home
+                <Link to="/dashboard">Dashboard Home</Link>
+              </div>
+              <div className="text-left w-full px-5 flex gap-3 text-lg items-center">
+                <FaUserTie />
+                <Link to="/dashboard/profile">Your Profile</Link>
+              </div>
+
+              <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
+                <FaEnvira />
+                <Link to="/dashboard/my-donation-requests">
+                  My Donation Requests
                 </Link>
               </div>
               <div className="text-left w-full px-5 flex gap-3 text-lg items-center">
                 <FaCashRegister />
                 <Link to="/dashboard/create-donation-request">
                   Create Donation Request
-                </Link>
-              </div>
-              <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
-                <FaEnvira />
-                <Link to="/dashboard/my-donation-requests">
-                  My Donation Requests
                 </Link>
               </div>
             </div>
@@ -68,15 +70,15 @@ const Dashboard = () => {
                 <Link to="/search">Search</Link>
               </div>
               <div className="text-left px-5 w-full flex gap-3 text-lg items-center pb-3">
-              <FaHandsHelping />
+                <FaHandsHelping />
                 <Link to="/donation-requests">Donation Requests</Link>
               </div>
               <div className="text-left px-5 w-full flex gap-3 text-lg items-center pb-3">
-              <FaBlogger />
+                <FaBlogger />
                 <Link to="/blogs">Blogs</Link>
               </div>
               <div className="text-left px-5 w-full flex gap-3 text-lg items-center pb-3">
-              <FaFunnelDollar />
+                <FaFunnelDollar />
                 <Link to="/funding"> Funding</Link>
               </div>
             </div>
@@ -97,7 +99,7 @@ const Dashboard = () => {
                 {isOpen ? (
                   <path d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <FaAlignJustify className="text-2xl text-white" />
+                  <FaAlignJustify className="text-2xl text-black" />
                 )}
               </svg>
             </button>
@@ -105,7 +107,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex-grow">
+      <div className="flex-grow overflow-x-auto">
         <Outlet />
       </div>
     </div>

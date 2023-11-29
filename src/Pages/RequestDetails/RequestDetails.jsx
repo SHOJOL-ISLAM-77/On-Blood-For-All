@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const RequestDetails = () => {
   const axiosPublic = useAxiosPublic();
+  const { user } = useContext(AuthContext);
   const [request, setRequest] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const name = user?.displayName;
+  const email = user?.email;
   const params = useParams();
   console.log(params);
   useEffect(() => {
@@ -17,35 +22,38 @@ const RequestDetails = () => {
     });
   }, [params, axiosPublic]);
 
-  const handleModal = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to give blood?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes !",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosPublic
-          .put(`/request/${params.id}`, { status: "inprogress" })
-          .then((res) => {
-            console.log(res.data);
+  const handleConfirm = () => {
+    console.log("Name:", name);
+    console.log("Password:", email);
 
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
+    axiosPublic
+      .put(`/request/${params.id}`, { status: "inprogress", name, email })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Success!",
+            text: "Your file has been Updated.",
+            icon: "success",
           });
-      }
-    });
+          navigate("/");
+        }
+      });
   };
+
   return (
     <div>
       {loading ? (
-        <></>
+        <>
+          <div className="flex h-screen w-full justify-center items-center my-10">
+            <div
+              role="status"
+              className="space-y-2.5 animate-pulse h-screen flex-grow bg-gray-300 rounded-lg max-w-5xl mx-auto "
+            >
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        </>
       ) : (
         <>
           <div className="bg-white shadow-md rounded-lg p-6 max-w-5xl mx-auto my-10">
@@ -109,14 +117,60 @@ const RequestDetails = () => {
               <h2 className="text-lg font-semibold mb-2">Request Message:</h2>
               <p>{request?.requestMessage}</p>
             </div>
+            {request?.requesterEmail === user.email ? (
+              <></>
+            ) : (
+              <div className="flex justify-center items-center my-5">
+                <button
+                  onClick={() => {
+                    document.getElementById("modal").classList.remove("hidden");
+                  }}
+                  className="py-4 px-10 bg-blue-600 text-white text-lg rounded-xl"
+                >
+                  Donate Please
+                </button>
+              </div>
+            )}
+          </div>
 
-            <div className="flex justify-center items-center my-5">
-              <button
-                onClick={handleModal}
-                className="py-4 px-10 bg-blue-600 text-white text-lg rounded-xl"
-              >
-                Donate Please
-              </button>
+          <div className="flex justify-center items-center ">
+            <div
+              id="modal"
+              className="hidden fixed inset-0 overflow-y-auto z-50 bg-gray-500 bg-opacity-50 flex justify-center items-center"
+            >
+              <div className="bg-white rounded-lg p-8 w-96">
+                <h2 className="text-lg font-semibold mb-4">Enter Details</h2>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  className="w-full border rounded-md py-2 px-3 mb-3 focus:outline-none"
+                  value={user?.displayName}
+                  readOnly
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="w-full border rounded-md py-2 px-3 mb-3 focus:outline-none"
+                  value={user?.email}
+                  readOnly
+                />
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => {
+                      document.getElementById("modal").classList.add("hidden");
+                    }}
+                    className="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleConfirm}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </>

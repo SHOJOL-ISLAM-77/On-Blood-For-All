@@ -15,7 +15,8 @@ import DashboardDonationRequest from "../Pages/DashboardDonationRequest/Dashboar
 import PrivateRoute from "./PrivateRoute";
 import MyDonationRequests from "../Pages/MyDonationRequests/MyDonationRequests";
 import RequestDetails from "../Pages/RequestDetails/RequestDetails";
-import useAxiosPublic from "../Hooks/UseAxiosPublic";
+import AdminRoute from "./AdminRoute";
+import RequestUpdate from "../Pages/RequestUpdate/RequestUpdate";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <RequestDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/request-update/:id",
+        element: (
+          <PrivateRoute>
+            <RequestUpdate />
           </PrivateRoute>
         ),
       },

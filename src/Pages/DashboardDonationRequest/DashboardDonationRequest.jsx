@@ -202,6 +202,7 @@ const DashboardDonationRequest = () => {
                           Requester Name (Read Only)
                         </label>
                         <input
+                          required
                           type="text"
                           name="requesterName"
                           value={user.displayName || ""}
@@ -217,6 +218,7 @@ const DashboardDonationRequest = () => {
                           Requester Email (Read Only)
                         </label>
                         <input
+                          required
                           type="email"
                           name="requesterEmail"
                           value={user.email || ""}
@@ -235,6 +237,7 @@ const DashboardDonationRequest = () => {
                           Recipient Name
                         </label>
                         <input
+                          required
                           type="text"
                           name="recipientName"
                           className="border border-gray-300 p-2 rounded-md"
@@ -248,6 +251,7 @@ const DashboardDonationRequest = () => {
                           Recipient Division
                         </label>
                         <select
+                          required
                           onClick={handleDistricts}
                           className="border border-gray-300 p-2 rounded-md"
                         >
@@ -267,6 +271,7 @@ const DashboardDonationRequest = () => {
                           Recipient District
                         </label>
                         <select
+                          required
                           onClick={handleUpazila}
                           className="border border-gray-300 p-2 rounded-md"
                         >
@@ -286,6 +291,7 @@ const DashboardDonationRequest = () => {
                           Recipient Upazila
                         </label>
                         <select
+                          required
                           name="recipientUpazila"
                           className="border border-gray-300 p-2 rounded-md"
                         >
@@ -308,6 +314,7 @@ const DashboardDonationRequest = () => {
                           Hospital Name
                         </label>
                         <input
+                          required
                           type="text"
                           name="hospitalName"
                           className="border border-gray-300 p-2 rounded-md"
@@ -344,6 +351,7 @@ const DashboardDonationRequest = () => {
                           Full Address
                         </label>
                         <input
+                          required
                           type="text"
                           name="fullAddress"
                           className="border border-gray-300 p-2 rounded-md"
@@ -360,6 +368,7 @@ const DashboardDonationRequest = () => {
                           Donation Date
                         </label>
                         <input
+                          required
                           type="date"
                           name="donationDate"
                           className="border border-gray-300 p-2 rounded-md"
@@ -373,6 +382,7 @@ const DashboardDonationRequest = () => {
                           Donation Time
                         </label>
                         <input
+                          required
                           type="time"
                           name="donationTime"
                           className="border border-gray-300 p-2 rounded-md"
@@ -388,6 +398,7 @@ const DashboardDonationRequest = () => {
                         Request Message
                       </label>
                       <textarea
+                        required
                         name="requestMessage"
                         rows="4"
                         className="border border-gray-300 p-2 rounded-md resize-none"

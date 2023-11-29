@@ -12,18 +12,19 @@ const useAdmin = () => {
     const fetchAdminData = async () => {
       try {
         if (user) {
-          const res = await axiosPublic.get(`/verifyAdmin/?email=${user.email}`);
+          const res = await axiosPublic.get(
+            `/verifyAdmin/?email=${user.email}`
+          );
           if (res.data.role === "Admin") {
-            setIsAdmin(true); 
+            setIsAdmin(true);
           }
         }
-        setAdminLoading(false); 
+        setAdminLoading(false);
       } catch (error) {
         console.error("Error fetching admin data:", error);
         setAdminLoading(false);
       }
     };
-
     fetchAdminData();
   }, [axiosPublic, user]);
 
