@@ -3,6 +3,7 @@ import { FaCalendarPlus, FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import { AuthContext } from "../../Provider/AuthProvider";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const DonationRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -20,6 +21,7 @@ const DonationRequests = () => {
 
   return (
     <div className="max-w-[1400px] mx-auto">
+      <HelmetTitle title={"Donation Requests"} />
       {loading ? (
         <>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-32 my-20">

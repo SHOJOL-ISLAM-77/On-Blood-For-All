@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const SignUp = () => {
   const [division, setDivision] = useState([]);
@@ -140,6 +141,7 @@ const SignUp = () => {
 
   return (
     <div className="max-w-[800px] mx-auto p-6 bg-gray-100 shadow-md rounded-lg my-7">
+      <HelmetTitle title={"Sing Up"} />
       <h2 className="text-3xl font-semibold text-center mb-6">
         Registration Form
       </h2>

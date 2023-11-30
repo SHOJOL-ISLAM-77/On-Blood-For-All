@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const SearchPage = () => {
   const [division, setDivision] = useState([]);
@@ -10,7 +11,8 @@ const SearchPage = () => {
   const axiosPublic = useAxiosPublic();
   const [divisionName, setDivisionName] = useState("");
   const [districtName, setDistrictName] = useState("");
-
+ 
+  console.log(districtName, divisionName)
   useEffect(() => {
     axiosPublic.get("/division").then((res) => {
       console.log(res.data);
@@ -69,6 +71,7 @@ const SearchPage = () => {
   };
   return (
     <div className="container mx-auto px-4 py-8">
+      <HelmetTitle title={"Search"} />
       <h2 className="text-3xl font-bold mb-6">Search for Donors</h2>
       <form onSubmit={handleSearch} className="mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const RequestUpdate = () => {
   const axiosPublic = useAxiosPublic();
@@ -121,6 +122,7 @@ const RequestUpdate = () => {
   };
   return (
     <div>
+      <HelmetTitle title={"Request Update"} />
       <div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
         <h2 className="text-2xl font-semibold mb-6">
           Blood Donation Request update Form

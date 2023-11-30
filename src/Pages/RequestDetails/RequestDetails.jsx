@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const RequestDetails = () => {
   const axiosPublic = useAxiosPublic();
@@ -43,6 +44,7 @@ const RequestDetails = () => {
 
   return (
     <div>
+      <HelmetTitle title={"Request Details"} />
       {loading ? (
         <>
           <div className="flex h-screen w-full justify-center items-center my-10">

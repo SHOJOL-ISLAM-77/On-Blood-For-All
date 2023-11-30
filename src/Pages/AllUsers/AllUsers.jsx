@@ -2,6 +2,7 @@ import { ToastContainer, toast } from "react-toastify";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import { useQuery } from "react-query";
 import "react-toastify/dist/ReactToastify.css";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const AllUsers = () => {
   const axiosPublic = useAxiosPublic();
@@ -66,6 +67,7 @@ const AllUsers = () => {
   return (
     <div>
       <h3 className="text-center py-4 text-3xl">All User</h3>
+      <HelmetTitle title={"All Users"} />
       <div className="py-28 overflow-x-auto mx-6">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
           <table className="w-full text-sm text-left text-gray-500 ">

@@ -75,7 +75,7 @@ const MyDonationRequests = () => {
 
   return (
     <div>
-      <HelmetTitle title={"My Donation Requests"} />
+      <HelmetTitle title={"All Donation Requests"} />
       <h4 className="text-center text-2xl my-3 uppercase">
         all donation requests
       </h4>

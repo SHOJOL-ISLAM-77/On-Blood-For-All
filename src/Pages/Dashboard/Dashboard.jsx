@@ -16,6 +16,7 @@ import {
 import logo from "../../../public/logo.png";
 import useAdmin from "../../Hooks/useAdmin";
 import useVolunteer from "../../Hooks/UseVolunteer";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -134,7 +135,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
+      <HelmetTitle title={"Dashboard"} />
       <div className="flex-grow overflow-x-auto">
         <Outlet />
       </div>

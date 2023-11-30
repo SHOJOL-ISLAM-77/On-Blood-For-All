@@ -4,6 +4,7 @@ import { useState } from "react";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import Swal from "sweetalert2";
 import useVolunteer from "../../Hooks/UseVolunteer";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 const ContentManagement = () => {
   const axiosPublic = useAxiosPublic();
   const [selectedStatus, setSelectedStatus] = useState(" ");
@@ -69,6 +70,7 @@ const ContentManagement = () => {
     <div>
       <div className="flex justify-evenly flex-col sm:flex-row my-8">
         <h3 className="text-xl lg:text-4xl font-bold ">Manage your contents</h3>{" "}
+        <HelmetTitle title={"Content Management"} />
         <Link
           to="/dashboard/content-management/add-blog"
           className="text-white rounded-lg text-lg bg-red-500 py-3 px-5"

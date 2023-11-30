@@ -3,6 +3,7 @@ import JoditEditor from "jodit-react";
 import { UploadImg } from "../../Utils/UploadImg";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import { ToastContainer, toast } from "react-toastify";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const AddBlog = () => {
   const axiosPublic = useAxiosPublic();
@@ -59,6 +60,7 @@ const AddBlog = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <HelmetTitle title={"Add Blog"} />
       <h1 className="text-3xl font-bold mb-4">Create a Blog Post</h1>
       <form ref={formRef} onSubmit={handleFormSubmit}>
         <div className="mb-4">

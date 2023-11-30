@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -31,6 +32,7 @@ const Login = () => {
 
   return (
     <div className="max-w-[1400px] mx-auto">
+      <HelmetTitle title={"Login"} />
       <section className="h-screen">
         <div className="container px-6 lg:py-24">
           <div className=" flex h-full flex-wrap-reverse my-8 gap-5 items-center justify-center lg:justify-between">
