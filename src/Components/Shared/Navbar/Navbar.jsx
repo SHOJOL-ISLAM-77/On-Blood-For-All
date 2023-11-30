@@ -141,6 +141,14 @@ const Navbar = () => {
               Funding
             </NavLink>
           </li>
+          <li className="lg:hidden">
+            <div
+              className=" py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+              onClick={logOut}
+            >
+              Sign out
+            </div>
+          </li>
           <li>
             <div className="relative z-40">
               <img
