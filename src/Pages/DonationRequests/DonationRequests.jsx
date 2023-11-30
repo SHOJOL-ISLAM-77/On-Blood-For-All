@@ -22,7 +22,7 @@ const DonationRequests = () => {
     <div className="max-w-[1400px] mx-auto">
       {loading ? (
         <>
-          <div className="grid grid-cols-3 gap-32 my-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-32 my-20">
             {skeleton.map((ske) => (
               <div key={ske}>
                 <div className="max-w-sm p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700">
@@ -44,11 +44,11 @@ const DonationRequests = () => {
         </>
       ) : (
         <>
-          <div className=" grid grid-cols-3 gap-32 my-20">
+          <div className=" grid lg:grid-cols-3 md:grid-cols-2 gap-32 my-20">
             {requests.map((request) => (
               <div key={request._id} className="text-center border-4">
-                <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <FaCalendarPlus className="text-4xl text-gray-200 my-2" />
+                <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto">
+                  <FaCalendarPlus className="text-4xl text-gray-600 my-2" />
                   <h5 className="mb-2 text-2xl font-semibold tracking-tight text-left text-gray-900 dark:text-white">
                     {request.requesterName}
                   </h5>

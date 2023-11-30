@@ -91,21 +91,7 @@ const DashboardDonationRequest = () => {
     const donationTime = form.donationTime.value;
     const blood = form.blood.value;
     const requestMessage = form.requestMessage.value;
-    console.log({
-      requesterName,
-      requesterEmail,
-      recipientName,
-      blood,
-      recipientUpazila,
-      districtName,
-      divisionName,
-      hospitalName,
-      fullAddress,
-      donationDate,
-      donationTime,
-      requestMessage,
-      status: "pending",
-    });
+    
     const data = {
       requesterName,
       requesterEmail,

@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const [loginError, setLoginError] = useState("");
-  const {signIn, googleSignIn,} =useContext(AuthContext)
+  const { signIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,21 +29,6 @@ const Login = () => {
       .catch(setLoginError("Do not match email or password"));
   };
 
-  const handleGoogleSingUp = () => {
-    googleSignIn()
-      .then((result) => {
-        console.log(result);
-        navigate(location?.state ? location.state : "/");
-        Swal.fire({
-          title: "Good job!",
-          text: "You clicked the button!",
-          icon: "success",
-        });
-      })
-      .catch((error) => {
-        setLoginError(error.message);
-      });
-  };
   return (
     <div className="max-w-[1400px] mx-auto">
       <section className="h-screen">
@@ -108,17 +93,6 @@ const Login = () => {
                 <Link className="text-blue-500 hover:underline" to="/singUp">
                   do not have an account? Sing Up
                 </Link>
-              </div>
-              <div className="text-center mt-4">
-                <p className="text-gray-500">or</p>
-              </div>
-              <div className="flex justify-center">
-                <button
-                  onClick={handleGoogleSingUp}
-                  className="bg-red-600 text-white py-2 px-4 rounded-md mr-2 hover:bg-red-700 transition-all duration-300 ease-in-out transform hover:scale-105"
-                >
-                  Sign in with Google
-                </button>
               </div>
             </div>
           </div>

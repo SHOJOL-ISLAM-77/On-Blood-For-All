@@ -20,8 +20,7 @@ const SignUp = () => {
   const [singUpError, setSingUpError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const { googleSignIn, updateUserProfile, createUser } =
-    useContext(AuthContext);
+  const { updateUserProfile, createUser } = useContext(AuthContext);
 
   useEffect(() => {
     axiosPublic.get("/division").then((res) => {
@@ -137,22 +136,6 @@ const SignUp = () => {
     } else {
       setSingUpError("Provide same password");
     }
-  };
-
-  const handleGoogleSingUp = () => {
-    googleSignIn()
-      .then((result) => {
-        console.log(result);
-        navigate(location?.state ? location.state : "/");
-        Swal.fire({
-          title: "Good job!",
-          text: "You clicked the button!",
-          icon: "success",
-        });
-      })
-      .catch((error) => {
-        setSingUpError(error.message);
-      });
   };
 
   return (
@@ -349,12 +332,6 @@ const SignUp = () => {
             className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
           >
             Register
-          </button>
-          <button
-            className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
-            onClick={handleGoogleSingUp}
-          >
-            handleGoogleSingUp
           </button>
         </div>
       </form>

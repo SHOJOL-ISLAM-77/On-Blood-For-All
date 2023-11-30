@@ -5,29 +5,32 @@ import {
   FaBlogger,
   FaCashRegister,
   FaEnvira,
+  FaFlask,
   FaFunnelDollar,
   FaHandsHelping,
   FaHome,
   FaSearch,
   FaUserTie,
+  FaUsers,
 } from "react-icons/fa";
 import logo from "../../../public/logo.png";
-import {} from "react-icons/fa";
-// import useAdmin from "../../Hooks/useAdmin";
+import useAdmin from "../../Hooks/useAdmin";
+import useVolunteer from "../../Hooks/UseVolunteer";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isAdmin] = useAdmin();
+  const [isVolunteer] = useVolunteer();
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-  
+
   return (
     <div className="flex w-full h-full ">
-      <div className="lg:min-w-[300px] min-h-max bg-gray-300">
-        <div className="flex h-screen min-h-max">
+      <div className="lg:min-w-[300px] h-full min-h-max bg-gray-300">
+        <div className="flex h-screen min-h-max bg-gray-300">
           <aside
-            className={`lg:min-w-[300px] sm:min-w-[200px] min-w-[100px] h-screen fixed lg:relative min-h-max  bg-gray-300 ${
+            className={`lg:min-w-[300px] sm:min-w-[200px] min-w-[100px] h-screen fixed min-h-max  bg-gray-300 ${
               isOpen ? "block" : "hidden"
             } lg:block lg:w-20 lg:flex-shrink-0`}
           >
@@ -46,13 +49,38 @@ const Dashboard = () => {
                 <FaUserTie />
                 <Link to="/dashboard/profile">Your Profile</Link>
               </div>
+              {isAdmin && (
+                <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
+                  <FaUsers />
+                  <Link to="/dashboard/all-users">All Users</Link>
+                </div>
+              )}
+              {isAdmin || isVolunteer ? (
+                <>
+                  <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
+                    <FaEnvira />
+                    <Link to="/dashboard/all-blood-donation">
+                      All Blood Donation Request
+                    </Link>
+                  </div>
+                  <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
+                    <FaFlask />
+                    <Link to="/dashboard/content-management">
+                      Content Management
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
+                    <FaEnvira />
+                    <Link to="/dashboard/my-donation-requests">
+                      My Donation Requests
+                    </Link>
+                  </div>
+                </>
+              )}
 
-              <div className="text-left px-5 w-full flex gap-3 text-lg items-center">
-                <FaEnvira />
-                <Link to="/dashboard/my-donation-requests">
-                  My Donation Requests
-                </Link>
-              </div>
               <div className="text-left w-full px-5 flex gap-3 text-lg items-center">
                 <FaCashRegister />
                 <Link to="/dashboard/create-donation-request">

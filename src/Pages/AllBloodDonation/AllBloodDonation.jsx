@@ -1,23 +1,21 @@
-import { useContext, useState } from "react";
 import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
-import { AuthContext } from "../../Provider/AuthProvider";
 import useAxiosPublic from "../../Hooks/UseAxiosPublic";
 import { useQuery } from "react-query";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FaEdit, FaPhabricator, FaRegTrashAlt } from "react-icons/fa";
+import { useState } from "react";
+import useVolunteer from "../../Hooks/UseVolunteer";
 
 const MyDonationRequests = () => {
-  const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const [filteredStatus, setFilteredStatus] = useState("all");
+  const [isVolunteer] = useVolunteer();
 
   const { data: requests = [], refetch } = useQuery({
-    queryKey: ["requests"],
+    queryKey: ["requests-for-admin"],
     queryFn: async () => {
-      const res = await axiosPublic.get(
-        `/get-request-for-dashboard-my-donation-requests-page?email=${user.email}`
-      );
+      const res = await axiosPublic.get(`/total-requests`);
       return res.data;
     },
   });
@@ -79,7 +77,7 @@ const MyDonationRequests = () => {
     <div>
       <HelmetTitle title={"My Donation Requests"} />
       <h4 className="text-center text-2xl my-3 uppercase">
-        my donation requests
+        all donation requests
       </h4>
       <div className="my-4 flex items-center justify-center">
         <label className="mr-2">Filter by Status:</label>
@@ -154,19 +152,26 @@ const MyDonationRequests = () => {
                           )}
                         </div>
                         <div className="sm:w-1/3 py-2 px-4 sm:py-3 sm:px-6">
-                          {data?.status === "pending" ? (
-                            <Link to={`/request-update/${data._id}`}>
-                              <FaEdit className="text-xl cursor-pointer" />
-                            </Link>
+                          {!isVolunteer ? (
+                            data?.status === "pending" ? (
+                              <Link to={`/request-update/${data._id}`}>
+                                <FaEdit className="text-xl cursor-pointer" />
+                              </Link>
+                            ) : (
+                              <FaEdit className="text-xl text-gray-400" />
+                            )
                           ) : (
                             <FaEdit className="text-xl text-gray-400" />
                           )}
                         </div>
                         <div className="sm:w-1/3 py-2 px-4 sm:py-3 sm:px-6">
-                          <FaRegTrashAlt
+                            {!isVolunteer ? (<FaRegTrashAlt
                             onClick={() => handleDelete(data?._id)}
                             className="text-xl text-red-500 cursor-pointer"
-                          />
+                          />):(<FaRegTrashAlt
+                            className="text-xl text-gray-500 cursor-default"
+                          />)}
+                          
                         </div>
                         <div className="sm:w-1/3 py-2 px-4 sm:py-3 sm:px-6">
                           <Link to={`/requestDetails/${data._id}`}>
