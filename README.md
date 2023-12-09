@@ -18,16 +18,10 @@ An application built to connect blood donors with recipients, facilitating a sea
 - **Authentication**: JWT for secure user authentication.
 - **Responsive Design**: Ensures usability across various devices.
 
-## Installation
-
-1. Clone the repository.
-2. Install dependencies using `npm install`.
-3. Set up MongoDB.
-4. Start the server with `npm start`.
 
 ## Usage
 
-- Register and log in as a user.
+- Register and login as a user.
 - Access specific features based on your role.
 - Create and manage donation requests.
 - Admins can manage blog content and users.
