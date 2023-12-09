@@ -1,4 +1,4 @@
-z`# Blood Donation Application
+# Blood Donation Application
 
 An application built to connect blood donors with recipients, facilitating a seamless donation process. The project utilizes the MERN stack (MongoDB, Express.js, React, Node.js) and offers role-based access control.
 
