@@ -8,14 +8,13 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import HelmetTitle from "../../Components/Shared/HelmetTitle/HelmetTitle";
 
 const SignUp = () => {
-  const [division, setDivision] = useState([]);
+  const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
+  const [division, setDivision] = useState([]);
+  const [district, setDistrict] = useState([]);
   const [upazila, setUpazila] = useState([]);
-  const [districtId, setDistrictId] = useState("");
-  const [upazilaId, setUpazilaId] = useState("");
   const axiosPublic = useAxiosPublic();
-  const [divisionName, setDivisionName] = useState("");
-  const [districtName, setDistrictName] = useState("");
   const [show, setShow] = useState(false);
   const [confirmShow, setConfirmShow] = useState(false);
   const [singUpError, setSingUpError] = useState("");
@@ -25,51 +24,42 @@ const SignUp = () => {
 
   useEffect(() => {
     axiosPublic.get("/division").then((res) => {
-      console.log(res.data);
-      setDivision(res.data);
+      setDivisions(res.data);
     });
   }, [axiosPublic]);
 
-  const handleDistricts = async (event) => {
-    const districtsId = event.target.value;
-    console.log(event.target.value);
-    setDistrictId(districtsId);
-    console.log(districtId);
+  const handleDivision = async (event) => {
+    const division = event.target.value;
+    setDivision(division);
+    if (division.length > 0) {
+      const getDistricts = async () => {
+        await axiosPublic.get(`/districts/${division[0]}`).then((res) => {
+          setDistricts(res.data);
+        });
+      };
+      getDistricts();
+    }
   };
 
-  useEffect(() => {
-    const getDistricts = async () => {
-      await axiosPublic.get(`/districts/${districtId}`).then((res) => {
-        console.log(res.data);
-        setDistricts(res.data);
-      });
-
-      await axiosPublic.get(`/division/${districtId}`).then((res) => {
-        console.log(res.data);
-        setDivisionName(res.data.name);
-      });
-
-      await axiosPublic.get(`/districtsName/${upazilaId}`).then((res) => {
-        setDistrictName(res.data.name);
-      });
-    };
-    getDistricts();
-  }, [axiosPublic, upazilaId, districtId]);
+  const handleDistrict = (event) => {
+    const district = event.target.value;
+    setDistrict(district);
+    if (district.length > 0) {
+      const getUpazilas = async () => {
+        await axiosPublic
+          .get(`/upazilas/${district.split(",")[0]}`)
+          .then((res) => {
+            setUpazilas(res.data);
+          });
+      };
+      getUpazilas();
+    }
+  };
 
   const handleUpazila = (event) => {
-    const upazilaId = event.target.value;
-    setUpazilaId(upazilaId);
+    const upazila = event.target.value;
+    setUpazila(upazila);
   };
-
-  useEffect(() => {
-    const getUpazila = async () => {
-      await axiosPublic.get(`/upazilas/${upazilaId}`).then((res) => {
-        console.log(res.data);
-        setUpazila(res.data);
-      });
-    };
-    getUpazila();
-  }, [axiosPublic, upazilaId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -81,7 +71,6 @@ const SignUp = () => {
     const name = form.name.value;
     const avatar = form.avatar.files[0];
     const blood = form.blood.value;
-    const upazila = form.upazila.value;
     const password = form.password.value;
     const ConfirmPassword = form.ConfirmPassword.value;
 
@@ -117,14 +106,13 @@ const SignUp = () => {
               email,
               name,
               password,
-              divisionName,
-              districtName,
+              divisionName: district.split(",")[1],
+              districtName: division.split(",")[1],
               upazila,
               role: "donar",
               status: "active",
             };
             const { data } = await axiosPublic.put(`/users/${email}`, user);
-            console.log(data);
             Swal.fire("Good job!", "Thanks for Sing Up!", "success");
             navigate(location?.state ? location.state : "/");
           })
@@ -227,12 +215,12 @@ const SignUp = () => {
           </label>
           <select
             required
-            onClick={handleDistricts}
+            onChange={handleDivision}
             className="input input-bordered w-full p-4 border outline-none"
           >
             <option>Select your Division</option>
-            {division?.map((data) => (
-              <option key={data.id} value={data.id}>
+            {divisions?.map((data) => (
+              <option key={data.id} value={[data.id, data.name]}>
                 {data.name}
               </option>
             ))}
@@ -248,12 +236,12 @@ const SignUp = () => {
           </label>
           <select
             required
-            onClick={handleUpazila}
+            onChange={handleDistrict}
             className="input input-bordered w-full p-4 border outline-none"
           >
             <option>Select your district</option>
             {districts?.map((data) => (
-              <option key={data.id} value={data.id}>
+              <option key={data.id} value={[data.id, data.name]}>
                 {data.name}
               </option>
             ))}
@@ -269,11 +257,11 @@ const SignUp = () => {
           </label>
           <select
             required
-            name="upazila"
+            onChange={handleUpazila}
             className="input input-bordered w-full p-4 border outline-none"
           >
-            <option>Select your Upazila</option>
-            {upazila?.map((data) => (
+            <option disabled selected>Select your Upazila</option>
+            {upazilas?.map((data) => (
               <option key={data.id} value={data.name}>
                 {data.name}
               </option>

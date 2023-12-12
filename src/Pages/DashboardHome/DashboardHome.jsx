@@ -137,6 +137,21 @@ const DashboardHome = () => {
               </div>
             </div>
           </div>
+          {isAdmin && <>
+          <div className="border p-20 border-black mx-7">
+            <form  className="border p-20 border-black mx-7">
+              <h2 className="text-2xl text-center py-3">Update Banner </h2>
+              <label htmlFor="file" className="text-lg my-4">Select image for home Page banner</label>
+              <br />
+              <input type="file" name="" id="" />
+            </form>
+            <form  className="border p-20 border-black mx-7">
+              <label htmlFor="file" className="text-lg my-4">Select image for home Page banner</label>
+              <br />
+              <input type="file" name="" id="" />
+            </form>
+          </div>
+          </>}
         </>
       ) : (
         <>

@@ -1,17 +1,22 @@
 import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
+import useAxiosPublic from "../../Hooks/UseAxiosPublic";
+import { useState } from "react";
 
 const Banner = () => {
+  const [banner, setBanner]= useState({})
+  const axiosPublic = useAxiosPublic();
+
+  axiosPublic.get("/banner").then((res) => 
+  setBanner(res.data.banner)
+  );
   return (
     <div
-      className="bg-fixed bg-center bg-cover bg-no-repeat "
-      style={{
-        backgroundImage: "url('https://i.ibb.co/VmLMm8V/banner-Img.jpg')",
-      }}
+      className={`bg-fixed bg-center bg-cover bg-no-repeat bg-[url(${banner})]`}
     >
       <div className="md:pb-40 lg:pb-72 py-5 md:pt-30 lg:pt-48 backdrop-blur-sm bg-white/20 ">
         <div>
-          <h1  className="lg:text-4xl text-2xl text-center my-5 font-bold tracking-tight">
+          <h1 className="lg:text-4xl text-2xl text-center my-5 font-bold tracking-tight">
             <span style={{ color: "black", fontWeight: "bold" }}>
               <Typewriter
                 words={[
@@ -51,8 +56,15 @@ const Banner = () => {
           </h1>
         </div>
         <div className="flex flex-wrap justify-center items-center my-7 gap-5 md:gap-20">
-          <Link to="/login" className="text-white bg-gray-900 md:py-3 py-2 px-5 md:px-10 text-xl rounded-lg hover:scale-x-110 duration-200">Join Us</Link>
-          <Link className="text-white bg-gray-900 md:py-3 py-2 px-5 md:px-10 text-xl rounded-lg hover:scale-x-110 duration-200">Search Donors</Link>
+          <Link
+            to="/login"
+            className="text-white bg-gray-900 md:py-3 py-2 px-5 md:px-10 text-xl rounded-lg hover:scale-x-110 duration-200"
+          >
+            Join Us
+          </Link>
+          <Link className="text-white bg-gray-900 md:py-3 py-2 px-5 md:px-10 text-xl rounded-lg hover:scale-x-110 duration-200">
+            Search Donors
+          </Link>
         </div>
       </div>
     </div>
